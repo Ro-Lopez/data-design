@@ -3,9 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>
-			Etsy Site
-		</title>
+		<title>Persona</title>
 
 	</head>
 	<body>
@@ -17,7 +15,7 @@
 		<main>
 			<h2>User Story:</h2> As a user, I want to favorite a product.
 
-			<br><br>
+			<br>
 			<h2>Persona</h2>
 
 			<h3>Consumer comparing product and prices</h3>
