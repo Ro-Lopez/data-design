@@ -15,9 +15,28 @@
 		</header>
 
 		<main>
-			<h2>User Story:</h2> As a user, I want to favorite a product.
+			<h2>User Story:</h2><p>As a user, I want to favorite a product.</p>
+			<br><br>
 
-			<h2>Conceptual Model</h2>
+			<h3>Entities and Attributes</h3>
+
+			<p><strong>Profile</strong></p>
+			<ul>
+				<li>profileId</li>
+				<li>profileName</li>
+				<li>profileHash</li>
+				<li>profileSalt</li>
+			</ul>
+
+			<p><strong>Favorite</strong></p>
+			<ul>
+				<li>favoriteProfileId</li>
+				<li>favoriteId</li>
+				<li>favoriteDate</li>
+			</ul>
+
+			<h3>Conceptual Model</h3>
+
 			<ul>
 				<li>one consumer can favorite many products</li>
 				<li>many consumers can favorite many products</li>
