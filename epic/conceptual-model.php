@@ -27,6 +27,7 @@
 				<li>profileHash</li>
 				<li>profileSalt</li>
 				<li>profileEmail</li>
+				<li>profileHandle</li>
 			</ul>
 
 			<p><strong>Product</strong></p>
