@@ -27,13 +27,15 @@
 				<li>profileHash</li>
 				<li>profileSalt</li>
 				<li>profileEmail</li>
-				<li>profileHandle</li>
+				<li>profileAtHandle</li>
+				<li>profilePhone</li>
+				<li>profileActivationToken</li>
 			</ul>
 
 			<p><strong>Product</strong></p>
 			<ul>
 				<li>productId</li>
-				<li>productProfileID</li>
+				<li>productProfileId</li>
 				<li>productContent</li>
 				<li>productDate</li>
 			</ul>
