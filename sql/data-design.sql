@@ -9,21 +9,22 @@ CREATE TABLE profile (
 
 	profileId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 
-	profileActivationToken char(32),
+	-- I dont thtink I need this
+	-- profileActivationToken char(32),
 
-	profileAtHandle VARCHAR(32)NOT NULL,
+	-- profileAtHandle VARCHAR(32)NOT NULL,
 
 	profileEmail VARCHAR(128) UNIQUE NOT NULL,
 
 	profileHash CHAR(128) NOT NULL,
 
-	profilePhone VARCHAR(32),
+	-- profilePhone VARCHAR(32),
 
 	profileSalt CHAR(64) NOT NULL,
 
 	UNIQUE(profileEmail),
 
-	UNIQUE(profileAtHandle),
+	-- UNIQUE(profileAtHandle),
 
 	PRIMARY KEY(profileId)
 
