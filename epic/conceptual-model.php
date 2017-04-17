@@ -46,6 +46,7 @@
 				<li>favoriteProductId</li>
 				<li>favoriteId</li>
 				<li>favoriteDate</li>
+				<li>favoriteContent</li>
 			</ul>
 
 			<p><strong>Relations</strong></p>
