@@ -1,5 +1,6 @@
 
 
+
 DROP TABLE IF EXISTS favorite;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS profile;
@@ -9,16 +10,16 @@ CREATE TABLE profile (
 
 	profileId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 
-	-- I dont thtink I need this
-	-- profileActivationToken char(32),
+	-- I don't think I need this
+	profileActivationToken char(32),
 
-	-- profileAtHandle VARCHAR(32)NOT NULL,
+	profileAtHandle VARCHAR(32)NOT NULL,
 
 	profileEmail VARCHAR(128) UNIQUE NOT NULL,
 
 	profileHash CHAR(128) NOT NULL,
 
-	-- profilePhone VARCHAR(32),
+	profilePhone VARCHAR(32),
 
 	profileSalt CHAR(64) NOT NULL,
 
@@ -37,8 +38,10 @@ CREATE TABLE product (
 
 	productProfileId INT UNSIGNED NOT NULL,
 
-	productContent VARCHAR(140) NOT NULL,
+	-- This number could be anything/what is needed?
+	productContent VARCHAR(32) NOT NULL,
 
+	-- ??
 	productDate DATETIME NOT NULL,
 
 	INDEX(productProfileId),
@@ -56,6 +59,7 @@ CREATE TABLE favorite (
 
 	favoriteProductId INT UNSIGNED NOT NULL,
 
+	-- ??
 	favoriteDate DATETIME NOT NULL,
 
 	INDEX(favoriteProfileId),
