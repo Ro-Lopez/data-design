@@ -1,4 +1,3 @@
-
 <?php
 
 namespace Edu\Cnm\DataDesign;
@@ -39,6 +38,27 @@ class Profile {
 	//salt for this profile password
 	//@var $profileSalt
 	private $profileSalt;
+
+
+	//constructor for this profile
+
+	//what is ?string
+	public function _construct(?int $newProfileId, ?string $newProfileActivationToken, ?string $newProfileAtHandle, string $newProfileEmail, string $newProfileHash, ?string $newProfilePhone, string $newProfileSalt) {
+		try {
+				$this->setProfileId($newProfileId);
+				$this->setProfileActivationToken($newProfileActivationToken);
+				$this->setProfileAtHandle($newProfileAtHandle);
+				$this->setProfileEmail($newProfileEmail);
+				$this->setProfileHash($newProfileHash);
+				$this->setProfilePhone($newProfilePhone);
+				$this->setProfileSalt($newProfileSalt);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			//determine what exception type was thrown
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
+
 
 
 
