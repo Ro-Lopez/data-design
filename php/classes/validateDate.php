@@ -1,4 +1,6 @@
 <?php
+
+//copy and paste to the top of the class files
 namespace Edu\Cnm\DataDesign;
 /**
  * Trait to Validate a mySQL Date
