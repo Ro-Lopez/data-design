@@ -81,4 +81,55 @@ class Profile {
 		$this->profileId = $newProfileId;
 	}
 
+	//accessor method for account activation token
+	 // @return mixed - string value of the activation token
+	public function getProfileActivationToken() {
+		return ($this->profileActivationToken);
+	}
+
+	//mutator for account activation token
+
+	/**
+	 * @param mixed $profileActivationToken
+	 */
+	public function setProfileActivationToken(?string $newProfileActivationToken): void {
+		if($newProfileActivationToken === null) {
+			$this->profileActivationToken = null;
+			return;
+		}
+
+		$newProfileActivationToken = strtolower(trim($newProfileActivationToken));
+		if(strlen($newProfileActivationToken) !== 32) {
+			throw(new\RangeException("user activation token has to be 32 characters"));
+		}
+		$this->profileActivationToken = $newProfileActivationToken;
+	}
+
+
+	//accessor method for at handle
+	//@return mixed - string value for handle
+	public function getProfileAtHandle(): string {
+		return $this->profileAtHandle;
+	}
+
+	//mutator method for handle
+	public function setProfileAtHandle(string $newProfileAtHandle) : void {
+		//verify at handles is secure
+		$newProfileAtHandle = trim($newProfileAtHandle);
+		$newProfileAtHandle = filter_var($newProfileAtHandle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProfileAtHandle) === true) {
+			throw(new \InvalidArgumentException("profile at handle is empty or insecure"));
+		}
+
+		//verify the at handle will fir in the database
+		if(strlen($newProfileAtHandle) > 32 {
+			throw(new \RangeException("profile at handle is too large"));
+		}
+
+		//store the at handle
+		$this->ProfileAtHandle = $newProfileAtHandle;
+
+	}
+
+
 }

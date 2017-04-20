@@ -16,16 +16,19 @@ spl_autoload_register(function($class) {
 	 * baseDir: the base directory for all classes (default = current directory)
 	 **/
 	$prefix = "Edu\\Cnm\\DataDesign";
+	//tells me what directory I am in
 	$baseDir = __DIR__;
 
 	// does the class use the namespace prefix?
 	$len = strlen($prefix);
 	if (strncmp($prefix, $class, $len) !== 0) {
+		//"!==" means different
 		// no, move to the next registered autoloader
 		return;
 	}
 
 	// get the relative class name
+	//substr is a sub string
 	$className = substr($class, $len);
 
 	// replace the namespace prefix with the base directory, replace namespace
