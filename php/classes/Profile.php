@@ -60,6 +60,25 @@ class Profile {
 	}
 
 
+	//accessor method for profile id
+	//@return int value of profile id (or null if new profile)
+	public function getProfileId() {
+		return $this->profileId;
+	}
 
+	//mutator method for profile Id
+	public function setProfileId(?int $newProfileId): void {
+		if($newProfileId === null)  {
+			$this->profileId = null;
+			return;
+		}
+
+		//verify the profile Id is positive
+		if($newProfileId <= 0) {
+			throw(new \RangeException("profile id is not positive"));
+		}
+		//convert and store the profile id
+		$this->profileId = $newProfileId;
+	}
 
 }
