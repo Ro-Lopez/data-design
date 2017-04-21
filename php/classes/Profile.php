@@ -122,7 +122,7 @@ class Profile {
 		}
 
 		//verify the at handle will fir in the database
-		if(strlen($newProfileAtHandle) > 32 {
+		if(strlen($newProfileAtHandle) > 32) {
 			throw(new \RangeException("profile at handle is too large"));
 		}
 
@@ -130,6 +130,34 @@ class Profile {
 		$this->ProfileAtHandle = $newProfileAtHandle;
 
 	}
+
+	//accessor method for email
+	//@return mixed string value of email
+	public function getProfileEmail(): string {
+		return $this->profileEmail;
+	}
+
+	//mutator method for email
+	public function setProfileEmail(string $newProfileEmail): void {
+		//verify the email is secure
+		$newProfileEmail = trim($newProfileEmail);
+		$newProfileEmail = filter_var($newProfileEmail, FILTER_VALIDATE_EMAIL);
+		if(empty($newProfileEmail) === true) {
+			throw(new \RangeException("profile email is too large"));
+		}
+		//store the email
+		$this->profileEmail = $newProfileEmail;
+	}
+
+
+	//accessor method profileHash
+	//@return mixed - value for hash
+	public function getProfileHash(): string {
+		return $this->profileHash;
+	}
+
+	//mutator method for profile hash password
+	public function setPrifle
 
 
 }
