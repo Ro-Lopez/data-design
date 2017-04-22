@@ -81,6 +81,7 @@ class Profile {
 		$this->profileId = $newProfileId;
 	}
 
+
 	//accessor method for account activation token
 	 // @return mixed - string value of the activation token
 	public function getProfileActivationToken() {
@@ -88,10 +89,7 @@ class Profile {
 	}
 
 	//mutator for account activation token
-
-	/**
-	 * @param mixed $profileActivationToken
-	 */
+	//@param mixed $profileActivationToken
 	public function setProfileActivationToken(?string $newProfileActivationToken): void {
 		if($newProfileActivationToken === null) {
 			$this->profileActivationToken = null;
@@ -127,9 +125,9 @@ class Profile {
 		}
 
 		//store the at handle
-		$this->ProfileAtHandle = $newProfileAtHandle;
-
+		$this->profileAtHandle = $newProfileAtHandle;
 	}
+
 
 	//accessor method for email
 	//@return mixed string value of email
@@ -157,10 +155,7 @@ class Profile {
 	}
 
 	//mutator method for profile hash password
-
-	/**
-	 * @param mixed $profileHash
-	 */
+	//@param mixed $profileHash
 	public function setProfileHash(string $newProfileHash): void {
 		//make sure hash is properly formatted
 		$newProfileHash = trim($newProfileHash);
@@ -177,6 +172,7 @@ class Profile {
 		//store the hash
 		$this->profileHash = $newProfileHash;
 	}
+
 
 		//accessor method for phone
 		public function getProfilePhone(): ?string {
@@ -202,6 +198,7 @@ class Profile {
 			$this->profilePhone = $newProfilePhone;
 		}
 
+
 		//accessor method for profile salt
 		public function getProfileSalt(): string {
 			return $this->profileSalt;
@@ -226,9 +223,4 @@ class Profile {
 			//store the hash
 			$this->profileSalt = $newProfileSalt;
 		}
-
-
-
-
-
 }
