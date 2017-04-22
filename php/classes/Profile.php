@@ -223,4 +223,27 @@ class Profile {
 			//store the hash
 			$this->profileSalt = $newProfileSalt;
 		}
+
+
+		public function insert(\PDO $pdo): void {
+			//make sure the profile is null, dont insert a profile that already exsists
+			if($this->profileId === null) {
+				throw(new \PDOException("unable to delete profile that does not exsist"));
+			}
+
+			//create query template
+			$query = "UPDATE profile set profileActivationToken = :profileActivationToken, profileAtHandle = :profileAtHandle, profileEmail = :profileEmail, profileHash = :profileHash, profilePhone = :profilePhone, profileSalt = profileSalt WHERE profileId = :profileId";
+			$statement = $pdo->prepare($query);
+
+			//bind the member variables to the place holders in the template
+			$parameters = ["profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profilePhone" => $this->profilePhone, "profileSalt" => $this->profileSalt];
+			$statement->execute($parameters);
+
+			//update the null profileId with what mySQL just gave us
+			$this->profileId = intval($pdo->lastInsertId());
+		}
+
+
+
 }
+
