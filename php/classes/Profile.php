@@ -244,6 +244,38 @@ class Profile {
 		}
 
 
+		public function delete(\PDO $pdo): void {
+			//enfore the profile id is not null, dont delete a profile that does not exist
+			if($this->profileId === null) {
+				throw(new \PDOException("unable to delete profile that does not exist"));
+			}
+
+			//create query template
+			$query = "DELETE for profile WHERE profileId = :profileId";
+			$statement = $pdo->prepare($query);
+
+			//bind the member variables to the place holders in the template
+			//no idea what this means?
+			$parameters = ["profileId" => $this->profileId];
+			$statement->execute($parameters);
+		}
+
+
+		public function update(\PDO $pdo): void {
+			//enforce the profile id is not null, dont update profile that does not exist
+			if($this->profileId === null) {
+				throw(new \PDOException("unable to delete a profile that does not exist"));
+			}
+
+			//create query template
+			$query = "UPDATE profile SET profileActivationToken = :profileActivationToken, profileAtHandle = :profileAtHandle, profileEmail = :profileEmail, profileHash = :profileHash, profilePhone = :profilePhone, profileSalt = :profileSalt WHERE profileId = :profileId";
+			$statement = $pdo->prepare($query);
+
+			//bind the member varfiables to the place holders in the template
+			$parameters = ["profileId" => $this->profileId, "profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profilePhone" => $this->profilePhone, "profileSalt" => $this->profileSalt];
+			$statement->execute($parameters);
+		}
+
 
 }
 
