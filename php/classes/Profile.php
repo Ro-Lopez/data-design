@@ -225,6 +225,7 @@ class Profile {
 		}
 
 
+		//inserts this Profile into mySQL
 		public function insert(\PDO $pdo): void {
 			//make sure the profile is null, dont insert a profile that already exsists
 			if($this->profileId === null) {
