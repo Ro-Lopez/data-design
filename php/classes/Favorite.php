@@ -107,7 +107,7 @@ class Favorite implements \JsonSerializable {
 	//inserts this Favorite into mySQL
 	public function insert(\PDO $pdo) : void {
 		//enforce the objest exists before inserting
-		if($this->favoriteProfileId === null) || $this->favoriteProductId === null) {
+		if($this->favoriteProfileId === null || $this->favoriteProductId === null) {
 			throw(new \PDOException("not a new favorite"));
 		}
 
@@ -146,12 +146,12 @@ class Favorite implements \JsonSerializable {
 			throw(new \PDOException("profile id is not positive"));
 		}
 
-		if(favoriteProductId <= 0) {
+		if($favoriteProductId <= 0) {
 			throw(new \PDOException("product id is not positive"));
 		}
 
 		//create query template
-		$query = "SELECT favoriteProfileId, favoriteProductId, favoriteDate FROM 'like' WHERE favoriteProfileId = :favoriteProfileId AND favoriteProductId = :favoriteProductId";
+		$query = "SELECT favoriteProfileId, favoriteProductId, favoriteDate FROM 'favorite' WHERE favoriteProfileId = :favoriteProfileId AND favoriteProductId = :favoriteProductId";
 		$statement = $pdo->prepare($query);
 
 		//bind the product id and profile id to the place holder in the template
@@ -160,11 +160,11 @@ class Favorite implements \JsonSerializable {
 
 		//grab the favorite from mySQL
 		try {
-				$like = null;
-				$statement->setFetchMode();
+				$favorite = null;
+				$statement->setFetchMode(\PDO::FETCH_ASSOC);
 				$row = $statement->fetch();
 				if($row !== false) {
-					$favorite = new Favorite($row["favoriteProfileId"], $row["favoriteProdcutId"], $row["favoriteDate"]);
+					$favorite = new Favorite($row["favoriteProfileId"], $row["favoriteProductId"], $row["favoriteDate"]);
 				}
 		} catch(\Exception $exception) {
 			//if the row could not be converted, rethrow it
