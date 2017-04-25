@@ -11,36 +11,63 @@ namespace Edu\Cnm\DataDesign;
 
 class Profile {
 
-	//id for this Profile; primary key
-	//@var int $profileId
+	/**
+	*id for this Profile; primary key
+	*@var int $profileId
+	 *
+	 **/
 	private $profileId;
 
-	//at handle for this Profile; this is a unique index
-	//@var string $profileAtHandle
+	/**
+	*at handle for this Profile; this is a unique index
+	*@var string $profileAtHandle
+	**/
 	private $profileAtHandle;
 
-	//token (usually an email?) handed out to verify that profile is valid
-	//@var $profileActivationToken;
+	/**
+	*token (usually an email?) handed out to verify that profile is valid
+	*@var $profileActivationToken;
+	**/
 	private $profileActivationToken;
 
-	//email for this Profile; this is a unique index
-	//@var string $profileEmail
+	/**
+	*email for this Profile; this is a unique index
+	*@var string $profileEmail
+	**/
 	private $profileEmail;
 
-	//hash for profile pw
-	//@var $profileHash
+	/**
+	*hash for profile pw
+	*@var $profileHash
+	**/
 	private $profileHash;
 
-	//phone number for this Profile
-	//@var string $profilePhone
+	/**
+	*phone number for this Profile
+	*@var string $profilePhone
+	**/
 	private $profilePhone;
 
-	//salt for this profile password
-	//@var $profileSalt
+	/**
+	*salt for this profile password
+	/*@var $profileSalt
+	**/
 	private $profileSalt;
 
-
-	//constructor for this profile
+	/**
+		constructor for this profile
+	 * @param int|null $newProfileId id of this Profile or null if a new Profile
+	 * @param string $newProfileActivationToken activation token to safe guard against malicious accounts
+	 * @param string $newProfileAtHandle string containing newAtHandle
+	 * @param string $newProfileEmail string containing email
+	 * @param string $newProfileHash string containing password hash
+	 * @param string $newProfilePhone string containing phone number
+	 * @param string $newProfileSalt string containing passowrd salt
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception
+	 **/
 
 	//what is ?string
 	public function _construct(?int $newProfileId, ?string $newProfileActivationToken, ?string $newProfileAtHandle, string $newProfileEmail, string $newProfileHash, ?string $newProfilePhone, string $newProfileSalt) {
@@ -59,14 +86,20 @@ class Profile {
 		}
 	}
 
-
-	//accessor method for profile id
-	//@return int value of profile id (or null if new profile)
-	public function getProfileId() {
-		return $this->profileId;
+	/**
+	*accessor method for profile id
+	*@return int value of profile id (or null if new profile)
+	**/
+	 public function getProfileId() {
+		return ($this->profileId);
 	}
 
-	//mutator method for profile Id
+	/**
+	 * mutator method for profile id
+	 * @param int|null $newProfileId value of new profile id
+	 * @throws \RangeException if $newProfileId is not positive
+	 * @throws \TypeError if $newProfileId is not an integer
+	 **/
 	public function setProfileId(?int $newProfileId): void {
 		if($newProfileId === null)  {
 			$this->profileId = null;
@@ -82,14 +115,21 @@ class Profile {
 	}
 
 
-	//accessor method for account activation token
-	 // @return mixed - string value of the activation token
+	/**
+	*accessor method for account activation token
+	*@return mixed - string value of the activation token
+	**/
 	public function getProfileActivationToken() {
 		return ($this->profileActivationToken);
 	}
 
-	//mutator for account activation token
-	//@param mixed $profileActivationToken
+	/**
+	 * mutator method for account activation token
+	 * @param string $newProfileActivationToken
+	 * @throws \InvalidArgumentException  if the token is not a string or insecure
+	 * @throws \RangeException if the token is not exactly 32 characters
+	 * @throws \TypeError if the activation token is not a string
+	 */
 	public function setProfileActivationToken(?string $newProfileActivationToken): void {
 		if($newProfileActivationToken === null) {
 			$this->profileActivationToken = null;
@@ -103,14 +143,21 @@ class Profile {
 		$this->profileActivationToken = $newProfileActivationToken;
 	}
 
-
-	//accessor method for at handle
-	//@return mixed - string value for handle
-	public function getProfileAtHandle(): string {
+	/**
+	*accessor method for at handle
+	*@return mixed - string value for handle
+	**/
+	 public function getProfileAtHandle(): string {
 		return $this->profileAtHandle;
 	}
 
-	//mutator method for handle
+	/**
+	 * mutator method for at handle
+	 * @param string $newProfileAtHandle new value of at handle
+	 * @throws \InvalidArgumentException if $newAtHandle is not a string or insecure
+	 * @throws \RangeException if $newAtHandle is > 32 characters
+	 * @throws \TypeError if $newAtHandle is not a string
+	 **/
 	public function setProfileAtHandle(string $newProfileAtHandle) : void {
 		//verify at handles is secure
 		$newProfileAtHandle = trim($newProfileAtHandle);
@@ -128,14 +175,21 @@ class Profile {
 		$this->profileAtHandle = $newProfileAtHandle;
 	}
 
-
-	//accessor method for email
-	//@return mixed string value of email
-	public function getProfileEmail(): string {
+	/**
+	*accessor method for email
+	*@return mixed string value of email
+	**/
+	 public function getProfileEmail(): string {
 		return $this->profileEmail;
 	}
 
-	//mutator method for email
+	/**
+	 * mutator method for email
+	 * @param string $newProfileEmail new value of email
+	 * @throws \InvalidArgumentException if $newEmail is not a valid email or insecure
+	 * @throws \RangeException if $newEmail is > 128 characters
+	 * @throws \TypeError if $newEmail is not a string
+	 **/
 	public function setProfileEmail(string $newProfileEmail): void {
 		//verify the email is secure
 		$newProfileEmail = trim($newProfileEmail);
@@ -147,15 +201,21 @@ class Profile {
 		$this->profileEmail = $newProfileEmail;
 	}
 
-
-	//accessor method profileHash
-	//@return mixed - value for hash
-	public function getProfileHash(): string {
+	/**
+	*accessor method profileHash
+	*@return mixed - value for hash
+	**/
+	 public function getProfileHash(): string {
 		return $this->profileHash;
 	}
 
-	//mutator method for profile hash password
-	//@param mixed $profileHash
+	/**
+	 * mutator method for profile hash password
+	 * @param string $newProfileHash
+	 * @throws \InvalidArgumentException if the hash is not secure
+	 * @throws \RangeException if the hash is not 128 characters
+	 * @throws \TypeError if profile hash is not a string
+	 */
 	public function setProfileHash(string $newProfileHash): void {
 		//make sure hash is properly formatted
 		$newProfileHash = trim($newProfileHash);
@@ -173,13 +233,21 @@ class Profile {
 		$this->profileHash = $newProfileHash;
 	}
 
-
-		//accessor method for phone
+		/**
+		* accessor method for phone
+		* @return string valuee of ohone or null
+		 **/
 		public function getProfilePhone(): ?string {
 			return ($this->profilePhone);
 		}
 
-		//mutator method for phone
+	/**
+	 * mutator method for phone
+	 * @param string $newProfilePhone new value of phone
+	 * @throws \InvalidArgumentException if $newPhone is not a string or insecure
+	 * @throws \RangeException if $newPhone is > 32 characters
+	 * @throws \TypeError if $newPhone is not a string
+	 **/
 		public function setProfilePhone(?string $newProfilePhone): void {
 			//if $profilephone is null return it right away
 			if($newProfilePhone === null) {
@@ -198,13 +266,21 @@ class Profile {
 			$this->profilePhone = $newProfilePhone;
 		}
 
-
-		//accessor method for profile salt
+		/**
+		*accessor method for profile salt
+		*@return string representation of the salt hexadecimal
+		 **/
 		public function getProfileSalt(): string {
 			return $this->profileSalt;
 		}
 
-		//mutator method for profile salt
+	/**
+	 * mutator method for profile salt
+	 * @param string $newProfileSalt
+	 * @throws \InvalidArgumentException if the salt is not secure
+	 * @throws \RangeException if the salt is not 64 characters
+	 * @throws \TypeError if profile salt is not a string
+	 */
 		public function setProfileSalt(string $newProfileSalt): void {
 			//make sure salt is properly formatted
 			$newProfileSalt = trim($newProfileSalt);
@@ -225,7 +301,12 @@ class Profile {
 		}
 
 
-		//inserts this Profile into mySQL
+	/**
+	 * inserts this Profile into mySQL
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
 		public function insert(\PDO $pdo): void {
 			//make sure the profile is null, dont insert a profile that already exsists
 			if($this->profileId === null) {
@@ -245,8 +326,14 @@ class Profile {
 		}
 
 
+	/**
+	 * deletes this Profile from mySQL
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
 		public function delete(\PDO $pdo): void {
-			//enfore the profile id is not null, dont delete a profile that does not exist
+			//enforce the profile id is not null, do not delete a profile that does not exist
 			if($this->profileId === null) {
 				throw(new \PDOException("unable to delete profile that does not exist"));
 			}
@@ -262,6 +349,12 @@ class Profile {
 		}
 
 
+	/**
+	 * updates this Profile from mySQL
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
 		public function update(\PDO $pdo): void {
 			//enforce the profile id is not null, dont update profile that does not exist
 			if($this->profileId === null) {
@@ -278,6 +371,14 @@ class Profile {
 		}
 
 
+	/**
+	 * gets the Profile by profile id
+	 * @param \PDO $pdo $pdo PDO connection object
+	 * @param int $profileId profile id to search for
+	 * @return Profile|null Profile or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
 		public static function getProfileByProfile(\PDO $pdo, int $profileId):?Profile {
 			//sanitize the profile Id before searching
 			if($profileId <= 0) {
@@ -308,7 +409,14 @@ class Profile {
 		}
 
 
-	//gets the Profile by email
+	/**
+	 * gets the Profile by email
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $profileEmail email to search for
+	 * @return Profile|null Profile or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
 	public static function getProfileByProfileEmail(\PDO $pdo, string $profileEmail): ?Profile {
 		//sanitize the email before searching
 		$profileEmail = trim($profileEmail);
@@ -342,7 +450,14 @@ class Profile {
 	}
 
 
-	//get the Profile by at handle
+	/**
+	 * gets the Profile by at handle
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $profileAtHandle at handle to search for
+	 * @return \SPLFixedArray of all profiles found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
 	public static function getProfileByProfileAtHandle(\PDO $pdo, string $profileAtHandle) : \SplFixedArray {
 		//sanitize the at handle before searching
 		$profileAtHandle = trim($profileAtHandle);
@@ -376,7 +491,14 @@ class Profile {
 	}
 
 
-	//get the profile by profile activation token
+	/**
+	 * get the profile by profile activation token
+	 * @param string $profileActivationToken
+	 * @param \PDO object $pdo
+	 * @return Profile|null Profile or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
 	public static function getProfileByProfileActivationToken(\PDO $pdo, string $profileActivationToken) : ?Profile {
 		//make sure activation token is in thr right format and it is a string representation of a hexidecimal
 		$profileActivationToken = trim($profileActivationToken);
@@ -407,9 +529,10 @@ class Profile {
 		return ($profile);
 	}
 
-
-	//formats the state variables for JSON serilization
-	//@return array resulting state variables to serialize
+	/**
+	*formats the state variables for JSON serilization
+	*@return array resulting state variables to serialize
+	**/
 	public function jsonSerialize() {
 		return (get_object_vars($this));
 	}
