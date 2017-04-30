@@ -2,6 +2,8 @@
 
 namespace Edu\Cnm\DataDesign;
 
+require_once("autoload.php");
+
 //	cross section of a product profile
 
 //this is the section for the product profile
@@ -9,7 +11,9 @@ namespace Edu\Cnm\DataDesign;
 //@author rolopez <llopez165@cnm.edu> - pretty much copied from @deepdivedylan (non ctrl c and ctrl v practices bro)
 
 
-class Profile {
+class Profile implements \JsonSerializable {
+
+	use ValidateDate;
 
 	/**
 	*id for this Profile; primary key
@@ -62,7 +66,7 @@ class Profile {
 	 * @param string $newProfileEmail string containing email
 	 * @param string $newProfileHash string containing password hash
 	 * @param string $newProfilePhone string containing phone number
-	 * @param string $newProfileSalt string containing passowrd salt
+	 * @param string $newProfileSalt string containing password salt
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \TypeError if data types violate type hints
@@ -235,7 +239,7 @@ class Profile {
 
 		/**
 		* accessor method for phone
-		* @return string valuee of ohone or null
+		* @return string value of phone or null
 		 **/
 		public function getProfilePhone(): ?string {
 			return ($this->profilePhone);
@@ -308,7 +312,7 @@ class Profile {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 		public function insert(\PDO $pdo): void {
-			//make sure the profile is null, dont insert a profile that already exsists
+			//make sure the profile is null, do not insert a profile that already exists
 			if($this->profileId === null) {
 				throw(new \PDOException("unable to delete profile that does not exsist"));
 			}
@@ -356,7 +360,7 @@ class Profile {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 		public function update(\PDO $pdo): void {
-			//enforce the profile id is not null, dont update profile that does not exist
+			//enforce the profile id is not null, do not update profile that does not exist
 			if($this->profileId === null) {
 				throw(new \PDOException("unable to delete a profile that does not exist"));
 			}
@@ -365,7 +369,7 @@ class Profile {
 			$query = "UPDATE profile SET profileActivationToken = :profileActivationToken, profileAtHandle = :profileAtHandle, profileEmail = :profileEmail, profileHash = :profileHash, profilePhone = :profilePhone, profileSalt = :profileSalt WHERE profileId = :profileId";
 			$statement = $pdo->prepare($query);
 
-			//bind the member varfiables to the place holders in the template
+			//bind the member variables to the place holders in the template
 			$parameters = ["profileId" => $this->profileId, "profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profilePhone" => $this->profilePhone, "profileSalt" => $this->profileSalt];
 			$statement->execute($parameters);
 		}
@@ -500,7 +504,7 @@ class Profile {
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
 	public static function getProfileByProfileActivationToken(\PDO $pdo, string $profileActivationToken) : ?Profile {
-		//make sure activation token is in thr right format and it is a string representation of a hexidecimal
+		//make sure activation token is in thr right format and it is a string representation of a hexadecimal
 		$profileActivationToken = trim($profileActivationToken);
 		if(ctype_xdigit($profileActivationToken) === false) {
 			throw(new \InvalidArgumentException("profile activation token is empty or in the wrong format"));
@@ -530,7 +534,7 @@ class Profile {
 	}
 
 	/**
-	*formats the state variables for JSON serilization
+	*formats the state variables for JSON serialization
 	*@return array resulting state variables to serialize
 	**/
 	public function jsonSerialize() {

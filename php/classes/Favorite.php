@@ -25,7 +25,7 @@ class Favorite implements \JsonSerializable {
 	/**
 	*id for favorite product id
 	*@var string $favoriteProductId
-	 * **/
+	 **/
 	private $favoriteProductId;
 
 	/**
@@ -237,7 +237,7 @@ class Favorite implements \JsonSerializable {
 		$query = "SELECT favoriteProfileId, favoriteProductId, favoriteDate FROM 'favorite' WHERE favoriteProfileId = :favoriteProfileId";
 		$statement = $pdo->prepare($query);
 
-		//bind the member var to the place holderss in the template
+		//bind the member var to the place holders in the template
 		$parameters = ["favoriteProfileId" => $favoriteProfileId];
 		$statement->execute($parameters);
 

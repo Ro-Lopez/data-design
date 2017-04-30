@@ -379,7 +379,7 @@ class Product implements \JsonSerializable {
 	 * @param \DateTime $sunriseProductDate beginning date to search for
 	 * @param \Datetime $sunsetProductDate ending date to search for
 	 * @return \SplFixedArray of products found
-	 * @throws \PDOException wheh mySQL related errors occur
+	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 * @throws \InvalidArgumentException if either sun dates are in the wrong format
 	 */
