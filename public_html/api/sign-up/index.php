@@ -77,5 +77,70 @@ try {
 				$profileActivationToken = bin2hex(random_bytes(16));
 
 				//create the profile object and prepare t insert into the database
+				$profile = new Profile(null, $profileActivationToken, $requestObject->profileAtHandle, $requestObject->profileEMmail, $hash, $requestObject->profilePhone, $salt);
+
+				//insert the profile into the database
+				$profile->insert($pdo);
+
+				//compose the email message to send the activation token
+				$messageSubject = "one step closer to sticky head -- account activation";
+
+				//building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account
+				//make sure URL is /public_html/api/activation/$activation
+				$basePath = dirname($_SERVER["SCRIPT_NAME"], 3);
+
+				//create the redirect link
+				$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
+
+				//compose message to send with email
+				$message = <<< EOF
+<h2>Welcome to DDCProduct.(/h2>
+<p>In order to start posting products of dogs you must confirm your account</p>
+<p><a href="$confirmLink">$confirmLink</a> </p>
+EOF;
+
+				//create swift email
+				$swiftMessage = Swift_Message::newInstance();
+
+				//attach the sender to the message
+				//this takes the form of an associative array where the email is the key to a real name
+				$swiftMessage->setFrom(["llopez165@cnm.edu" => "RoLopez"]);
+
+				/**
+				 * attach recipients to the message
+				 * notice this is an array that can include or omit the recipients name
+				 * use the recipients real name where possible;
+				 * this reduces the probablilty of the email is marked as spamm
+				 */
+
+				//define who the recipient is
+				$recipients = [$requestObject->profileEmail];
+
+				//set the recipient to the swift message
+				$swiftMessage->setTo($recipients);
+
+				//attach the subject line to the email message
+				$swiftMessage->setSubject($messageSubject);
+
+				//attach the subject line to the email message
+				$swiftMessage->setSubject($messageSubject);
+
+				/**
+				 * attach the message to the email
+				 * set two versions of the message: a html formatted and a filter_var()ed version of the message, plain text
+				 * notice the tactic used is to display the entire $confirmLink to plain text
+				 * this lets user who ar not viewing the html content to still access the link
+				 */
+
+				//attach the html version for the message
+				$swiftMessage->setBody($message, "text/html");
+
+
+				//attach the plain text version of the message
+				$swiftMessage->addPart(html_entity_decode($message), "text/plain");
+
+
+
+
 			}
 }
