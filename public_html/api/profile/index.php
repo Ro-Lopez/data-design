@@ -43,7 +43,8 @@ try {
 	$profileEmail = filter_input(INPUT_GET, "profileEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)); {
+	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) ;
+	{
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 
@@ -168,11 +169,15 @@ try {
 		throw (new InvalidArgumentException("Invalid HTTP request", 400));
 	}
 
+
+
 //catch any exceptions that were thrown and update the status and message state variable fields
 } catch(\Exception | \TypeError $exception) {
-	$replyp->status = $exception->getCode();
+	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 }
+
+
 
 header("Content-type: application/json");
 if($reply->data === null) {
